@@ -1,7 +1,7 @@
 package ar.edu.ungs.census.takers.infrastructure.persistence;
 
-import static org.junit.jupiter.api.Assertions.*;
+import ar.edu.ungs.census.takers.TakersModuleInfrastructureTestCase;
 
-final class InMemoryTakerRepositoryShould {
+final class InMemoryTakerRepositoryShould extends TakersModuleInfrastructureTestCase {
 
 }
