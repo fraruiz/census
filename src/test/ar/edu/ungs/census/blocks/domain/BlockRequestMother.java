@@ -1,7 +1,6 @@
 package ar.edu.ungs.census.blocks.domain;
 
 import ar.edu.ungs.census.blocks.application.BlockRequest;
-import ar.edu.ungs.census.blocks.application.CoordinatesRequest;
 
 public class BlockRequestMother {
 

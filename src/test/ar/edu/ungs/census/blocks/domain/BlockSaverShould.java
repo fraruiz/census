@@ -1,7 +1,6 @@
 package ar.edu.ungs.census.blocks.domain;
 
 import ar.edu.ungs.census.blocks.BlocksModuleUnitTestCase;
-import ar.edu.ungs.census.blocks.application.BlockRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
