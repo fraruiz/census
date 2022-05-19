@@ -1,6 +1,4 @@
-package ar.edu.ungs.census.blocks.domain;
-
-import ar.edu.ungs.census.blocks.application.BlockRequest;
+package ar.edu.ungs.census.blocks.application;
 
 public class BlockRequestMother {
 

@@ -1,4 +1,4 @@
-package ar.edu.ungs.census.blocks.domain;
+package ar.edu.ungs.census.blocks.application;
 
 import ar.edu.ungs.census.blocks.application.CoordinatesRequest;
 
