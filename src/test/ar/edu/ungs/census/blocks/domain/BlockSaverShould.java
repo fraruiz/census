@@ -16,12 +16,10 @@ final class BlockSaverShould extends BlocksModuleUnitTestCase {
     }
     @Test
     public void create_valid_block(){
-        BlockRequest request = BlockRequestMother.random();
-        Block expected = BlockRequest.map(request);
+        Block block = BlockMother.random();
+        saver.save(block.id(), block.coordinates());
 
-        saver.save(request);
-
-        shouldSaved(expected);
+        shouldSaved(block);
     }
 
 

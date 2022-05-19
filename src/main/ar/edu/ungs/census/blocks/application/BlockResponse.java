@@ -7,22 +7,22 @@ import java.util.Objects;
 
 public class BlockResponse {
     private final Long id;
-    private final Coordinates coordinates;
+    private final CoordinatesResponse coordinates;
 
-    public BlockResponse(Long id, Coordinates coordinates) {
+    public BlockResponse(Long id, CoordinatesResponse coordinates) {
         this.id = id;
         this.coordinates = coordinates;
     }
 
     public static BlockResponse map(Block block){
-        return new BlockResponse(block.id(),block.coordinates());
+        return new BlockResponse(block.id(), CoordinatesResponse.map(block.coordinates()));
     }
 
     public Long getId() {
         return id;
     }
 
-    public Coordinates getCoordinates() {
+    public CoordinatesResponse getCoordinates() {
         return coordinates;
     }
 

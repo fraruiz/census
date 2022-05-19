@@ -9,8 +9,8 @@ public final class BlockSaver {
         this.repository = repository;
     }
 
-    public void save(BlockRequest request) {
-        Block block = BlockRequest.map(request);
+    public void save(Long id, Coordinates coordinates) {
+        Block block = new Block(id, coordinates);
 
         repository.save(block);
     }

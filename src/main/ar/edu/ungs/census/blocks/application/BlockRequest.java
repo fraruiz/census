@@ -8,22 +8,22 @@ import java.util.Objects;
 public class BlockRequest {
 
     private final Long id;
-    private final Coordinates coordinates;
+    private final CoordinatesRequest coordinates;
 
-    public BlockRequest(Long id, Coordinates coordinates) {
+    public BlockRequest(Long id, CoordinatesRequest coordinates) {
         this.id = id;
         this.coordinates = coordinates;
     }
 
     public static Block map(BlockRequest request) {
-        return new Block(request.getId(), request.getCoordinates());
+        return new Block(request.getId(), CoordinatesRequest.map(request.getCoordinates()));
     }
 
     public Long getId() {
         return id;
     }
 
-    public Coordinates getCoordinates() {
+    public CoordinatesRequest getCoordinates() {
         return coordinates;
     }
 
