@@ -1,3 +1,17 @@
 package ar.edu.ungs.census.blocks.domain;
 
-public final class BlockSaver {}
+import ar.edu.ungs.census.blocks.application.BlockRequest;
+
+public final class BlockSaver {
+    private final BlockRepository repository;
+
+    public BlockSaver(BlockRepository repository) {
+        this.repository = repository;
+    }
+
+    public void save(Long id, Coordinates coordinates) {
+        Block block = new Block(id, coordinates);
+
+        repository.save(block);
+    }
+}

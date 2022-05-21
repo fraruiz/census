@@ -4,7 +4,9 @@ import java.util.Random;
 
 public final class LongMother {
 	public static Long random(Long min, Long max) {
-		return min + (max - min) * new Random().nextLong();
+		long leftLimit = min;
+		long rightLimit = max;
+		return leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
 	}
 
 	public static Long random() {
