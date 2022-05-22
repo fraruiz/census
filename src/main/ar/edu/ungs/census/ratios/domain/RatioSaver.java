@@ -1,3 +1,8 @@
 package ar.edu.ungs.census.ratios.domain;
 
-public final class RatioSaver {}
+import ar.edu.ungs.census.shared.domain.Service;
+
+@Service
+public final class RatioSaver {
+
+}

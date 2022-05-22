@@ -1,7 +1,8 @@
 package ar.edu.ungs.census.blocks.domain;
 
-import ar.edu.ungs.census.blocks.application.BlockRequest;
+import ar.edu.ungs.census.shared.domain.Service;
 
+@Service
 public final class BlockSaver {
     private final BlockRepository repository;
 
