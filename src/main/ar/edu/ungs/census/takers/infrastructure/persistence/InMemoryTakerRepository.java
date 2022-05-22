@@ -1,10 +1,12 @@
 package ar.edu.ungs.census.takers.infrastructure.persistence;
 
+import ar.edu.ungs.census.shared.domain.Service;
 import ar.edu.ungs.census.takers.domain.Taker;
 import ar.edu.ungs.census.takers.domain.TakerRepository;
 
 import java.util.*;
 
+@Service
 public final class InMemoryTakerRepository implements TakerRepository {
 	private final Map<Long, Taker> values;
 

@@ -1,3 +1,10 @@
 package ar.edu.ungs.census.blocks.application.assign;
 
-public final class BlockAssigner {}
+import ar.edu.ungs.census.shared.domain.Service;
+
+@Service
+public final class BlockAssigner {
+	public void assign() {
+
+	}
+}

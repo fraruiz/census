@@ -1,14 +1,20 @@
 package ar.edu.ungs.app;
 
 import ar.edu.ungs.app.swing.SwingConsoleCommand;
+import ar.edu.ungs.app.web.WebConsoleCommand;
 import ar.edu.ungs.census.shared.domain.ConsoleCommand;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
+import org.springframework.context.ConfigurableApplicationContext;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Set;
 
-public final class Starter {
+public class Starter {
 	private final static Map<String, Class<? extends ConsoleCommand>> commands = commands();
+	private final static Set<String> commandsServers = commandServers();
 
 	public static void main(String[] args) {
 		ensureCommandExists(args);
@@ -20,8 +26,24 @@ public final class Starter {
 
 	private static void run(String commandName, String[] args) {
 		try {
-			commands.get(commandName).getConstructor().newInstance().execute(args);
-		} catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException error) {
+			boolean isServerCommand = commandsServers.contains(commandName);
+
+			Class<? extends ConsoleCommand> commandClass = commands.get(commandName);
+			SpringApplication app = new SpringApplication(commandClass);
+
+			if (!isServerCommand) {
+				app.setWebApplicationType(WebApplicationType.NONE);
+			}
+
+			ConfigurableApplicationContext context = app.run(args);
+
+			if (!isServerCommand) {
+				ConsoleCommand bean = context.getBean(commands().get(commandName));
+
+				bean.execute(Arrays.copyOfRange(args, 2, args.length));
+			}
+
+		} catch (Exception error) {
 			throw new RuntimeException(String.format("can not run <%s> command", commandName));
 		}
 	}
@@ -36,7 +58,11 @@ public final class Starter {
 		}
 	}
 
+	private static Set<String> commandServers() {
+		return Set.of("web");
+	}
+
 	private static Map<String, Class<? extends ConsoleCommand>> commands() {
-		return Map.of("swing", SwingConsoleCommand.class);
+		return Map.of("swing", SwingConsoleCommand.class, "web", WebConsoleCommand.class);
 	}
 }

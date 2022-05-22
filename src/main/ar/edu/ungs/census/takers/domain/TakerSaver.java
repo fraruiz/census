@@ -1,5 +1,8 @@
 package ar.edu.ungs.census.takers.domain;
 
+import ar.edu.ungs.census.shared.domain.Service;
+
+@Service
 public final class TakerSaver {
 	private final TakerRepository repository;
 
