@@ -3,10 +3,7 @@ package ar.edu.ungs.census.ratios.domain;
 import ar.edu.ungs.census.blocks.domain.Block;
 import ar.edu.ungs.census.takers.domain.Taker;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 public final class Ratio {
 	private final Map<Block, Set<Block>> values;
@@ -21,20 +18,15 @@ public final class Ratio {
 		ensureBlocksAreDifferent(firstBlock, secondBlock);
 
 		if (!values.containsKey(firstBlock)) {
-			values.put(firstBlock, Set.of(secondBlock));
+			values.put(firstBlock, new HashSet<>());
 		}
 
 		if (!values.containsKey(secondBlock)) {
-			values.put(secondBlock, Set.of(firstBlock));
+			values.put(secondBlock, new HashSet<>());
 		}
 
-		Set<Block> firstBlockNeighbours = values.get(firstBlock);
-		firstBlockNeighbours.add(secondBlock);
-		values.put(firstBlock, firstBlockNeighbours);
-
-		Set<Block> secondBlockNeighbours = values.get(secondBlock);
-		secondBlockNeighbours.add(firstBlock);
-		values.put(secondBlock, secondBlockNeighbours);
+		values.get(firstBlock).add(secondBlock);
+		values.get(secondBlock).add(firstBlock);
 	}
 
 	public void assign(Taker taker, Block block) {
