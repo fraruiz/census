@@ -24,6 +24,10 @@ public final class RatioResponse {
         return new RatioResponse(blocks);
     }
 
+    public Set<BlockResponse> blocks() {
+        return blocks;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

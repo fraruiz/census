@@ -7,11 +7,11 @@ import java.util.*;
 
 public final class Ratio {
 	private final Map<Block, Set<Block>> values;
-	private final Map<Block, Taker> takers;
+	private final Map<Block, Taker> blocksAssigned;
 
 	public Ratio() {
 		this.values = new HashMap<>();
-		this.takers = new HashMap<>();
+		this.blocksAssigned = new HashMap<>();
 	}
 
 	public void add(Block firstBlock, Block secondBlock) {
@@ -29,12 +29,26 @@ public final class Ratio {
 		values.get(secondBlock).add(firstBlock);
 	}
 
+	public Boolean isNotAssigned(Block block) {
+		return !isAssigned(block);
+	}
+
+	public Boolean isAssigned(Block block) {
+		return this.blocksAssigned.containsKey(block) && this.blocksAssigned.get(block) != null;
+	}
+
 	public void assign(Taker taker, Block block) {
-		this.takers.put(block, taker);
+		if (isAssigned(block)) {
+			throw new CanNotAssignBlockAssigned(block.id(), taker.id(), this.blocksAssigned.get(block).id());
+		}
+
+		this.blocksAssigned.put(block, taker);
 	}
 
 	public Optional<Taker> taker(Block block) {
-		return takers.containsKey(block) ? Optional.ofNullable(takers.get(block)) : Optional.empty();
+		return blocksAssigned.containsKey(block)
+		       ? Optional.ofNullable(blocksAssigned.get(block))
+		       : Optional.empty();
 	}
 
 	public Set<Block> neighbours(Block block) {

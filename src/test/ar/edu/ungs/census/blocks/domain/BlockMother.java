@@ -1,5 +1,7 @@
 package ar.edu.ungs.census.blocks.domain;
 
+import ar.edu.ungs.census.coordinates.domain.Coordinates;
+import ar.edu.ungs.census.coordinates.domain.CoordinatesMother;
 import ar.edu.ungs.census.shared.domain.LongMother;
 
 public final class BlockMother {

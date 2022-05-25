@@ -17,11 +17,11 @@ public class TakerResponse {
         return new TakerResponse(taker.id(), taker.name());
     }
 
-    public Long getId() {
+    public Long id() {
         return id;
     }
 
-    public String getName() {
+    public String name() {
         return name;
     }
 

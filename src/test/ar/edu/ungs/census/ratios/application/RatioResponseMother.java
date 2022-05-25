@@ -2,7 +2,6 @@ package ar.edu.ungs.census.ratios.application;
 
 import ar.edu.ungs.census.blocks.application.BlockResponse;
 import ar.edu.ungs.census.blocks.application.BlockResponseMother;
-import ar.edu.ungs.census.blocks.application.CoordinatesResponse;
 
 import java.util.HashSet;
 import java.util.Set;

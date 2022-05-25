@@ -1,6 +1,7 @@
 package ar.edu.ungs.census.blocks.application;
 
 import ar.edu.ungs.census.blocks.domain.Block;
+import ar.edu.ungs.census.coordinates.application.CoordinatesResponse;
 import ar.edu.ungs.census.takers.application.TakerResponse;
 import ar.edu.ungs.census.takers.domain.Taker;
 
@@ -11,23 +12,21 @@ public class BlockResponse {
     private final CoordinatesResponse coordinates;
     private final Optional<TakerResponse> taker;
 
-
     public BlockResponse(CoordinatesResponse coordinates, Optional<TakerResponse> taker) {
         this.coordinates = coordinates;
         this.taker = taker;
     }
 
     public static BlockResponse map(Block block, Optional<Taker> taker) {
-        if (taker.isPresent())
-            return new BlockResponse(CoordinatesResponse.map(block.coordinates()), Optional.of(TakerResponse.map(taker.get())));
-        return new BlockResponse(CoordinatesResponse.map(block.coordinates()), Optional.empty());
+        return taker.map(value -> new BlockResponse(CoordinatesResponse.map(block.coordinates()), Optional.of(TakerResponse.map(value))))
+                    .orElseGet(() -> new BlockResponse(CoordinatesResponse.map(block.coordinates()), Optional.empty()));
     }
 
-    public CoordinatesResponse getCoordinates() {
+    public CoordinatesResponse coordinates() {
         return coordinates;
     }
 
-    public Optional<TakerResponse> getTaker() {
+    public Optional<TakerResponse> taker() {
         return taker;
     }
 

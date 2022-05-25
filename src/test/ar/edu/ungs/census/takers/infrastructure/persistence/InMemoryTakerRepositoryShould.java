@@ -6,6 +6,8 @@ import ar.edu.ungs.census.takers.domain.TakerMother;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final class InMemoryTakerRepositoryShould extends TakersModuleInfrastructureTestCase {
@@ -17,17 +19,17 @@ final class InMemoryTakerRepositoryShould extends TakersModuleInfrastructureTest
 	}
 
 	@Test
-	void save_an_aggregate() {
-		Taker aggregate = TakerMother.random();
+	void save_all_aggregates() {
+		List<Taker> aggregates = TakerMother.randoms();
 
-		repository.save(aggregate);
+		repository.saveAll(aggregates);
 	}
 
 	@Test
 	void return_an_existing_aggregate() {
 		Taker aggregate = TakerMother.random();
 
-		repository.save(aggregate);
+		repository.saveAll(List.of(aggregate));
 
 		assertTrue(repository.findById(aggregate.id()).isPresent());
 	}

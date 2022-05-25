@@ -15,8 +15,8 @@ public final class InMemoryTakerRepository implements TakerRepository {
 	}
 
 	@Override
-	public void save(Taker taker) {
-		this.values.put(taker.id(), taker);
+	public void saveAll(List<Taker> takers) {
+		takers.forEach(taker -> values.put(taker.id(), taker));
 	}
 
 	@Override
