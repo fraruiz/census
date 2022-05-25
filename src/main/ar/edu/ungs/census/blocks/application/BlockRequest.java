@@ -1,7 +1,6 @@
 package ar.edu.ungs.census.blocks.application;
 
 import ar.edu.ungs.census.blocks.domain.Block;
-import ar.edu.ungs.census.blocks.domain.Coordinates;
 
 import java.util.Objects;
 

@@ -17,7 +17,7 @@ public abstract class RatiosModuleUnitTestCase extends UnitTestCase {
 		this.repository = mock(RatioRepository.class);
 	}
 
-	public void shouldFindById(Ratio expected) {
+	public void shouldFind(Ratio expected) {
 		when(this.repository.find()).thenReturn(Optional.of(expected));
 	}
 
