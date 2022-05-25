@@ -13,7 +13,7 @@ public class TakerResponse {
         this.name = name;
     }
 
-    public static TakerResponse map(Taker taker){
+    public static TakerResponse map(Taker taker) {
         return new TakerResponse(taker.id(), taker.name());
     }
 

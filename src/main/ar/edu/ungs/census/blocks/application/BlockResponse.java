@@ -17,9 +17,9 @@ public class BlockResponse {
         this.taker = taker;
     }
 
-    public static BlockResponse map(Block block, Optional<Taker> taker){
-        if(taker.isPresent())
-            return new BlockResponse(CoordinatesResponse.map(block.coordinates()), Optional.of( TakerResponse.map(taker.get())));
+    public static BlockResponse map(Block block, Optional<Taker> taker) {
+        if (taker.isPresent())
+            return new BlockResponse(CoordinatesResponse.map(block.coordinates()), Optional.of(TakerResponse.map(taker.get())));
         return new BlockResponse(CoordinatesResponse.map(block.coordinates()), Optional.empty());
     }
 
