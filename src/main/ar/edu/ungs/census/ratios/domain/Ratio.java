@@ -59,6 +59,10 @@ public final class Ratio {
 		return values.keySet();
 	}
 
+	public Taker assigned(Block block) {
+		return this.blocksAssigned.get(block);
+	}
+
 	private void ensureBlocksAreDifferent(Block firstBlock, Block secondBlock) {
 		if (firstBlock.equals(secondBlock)) {
 			throw new IllegalArgumentException("the blocks can not be equals");
