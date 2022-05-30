@@ -68,4 +68,26 @@ public final class Ratio {
 			throw new IllegalArgumentException("the blocks can not be equals");
 		}
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		Ratio ratio = (Ratio) o;
+		return Objects.equals(values, ratio.values) && Objects.equals(blocksAssigned, ratio.blocksAssigned);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(values, blocksAssigned);
+	}
+
+	@Override
+	public String toString() {
+		return "Ratio{" + "values=" + values + ", blocksAssigned=" + blocksAssigned + '}';
+	}
 }

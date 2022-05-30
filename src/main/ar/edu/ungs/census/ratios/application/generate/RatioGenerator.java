@@ -56,17 +56,21 @@ public final class RatioGenerator {
 	}
 
 	public Boolean assignTakerToBlock(Block block) {
-		Taker taker = takers.get(takerIndex);
-		Integer blocksAssigned = blocksAssignedByTaker.get(taker);
+		try {
+			Taker taker = takers.get(takerIndex);
+			Integer blocksAssigned = blocksAssignedByTaker.get(taker);
 
-		if (this.ratio.isAssigned(block) || blocksAssigned >= MAX_ASSIGNS_ATTEMPT_BY_TAKER){
+			if (this.ratio.isAssigned(block) || blocksAssigned >= MAX_ASSIGNS_ATTEMPT_BY_TAKER){
+				return false;
+			}
+
+			ratio.assign(taker, block);
+			blocksAssignedByTaker.put(taker, ++blocksAssigned);
+
+			return true;
+		} catch (ArrayIndexOutOfBoundsException error) {
 			return false;
 		}
-
-		ratio.assign(taker, block);
-		blocksAssignedByTaker.put(taker, ++blocksAssigned);
-
-		return true;
 	}
 
 	private Map<Taker, Integer> buildBlocksAssignedByTaker(List<Taker> takers) {

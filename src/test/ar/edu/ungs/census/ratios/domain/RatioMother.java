@@ -2,6 +2,10 @@ package ar.edu.ungs.census.ratios.domain;
 
 import ar.edu.ungs.census.blocks.domain.Block;
 import ar.edu.ungs.census.blocks.domain.BlockMother;
+import ar.edu.ungs.census.takers.domain.Taker;
+
+import java.util.Collections;
+import java.util.List;
 
 public final class RatioMother {
 
@@ -26,6 +30,10 @@ public final class RatioMother {
 	 * 10 -> 8, 9
 	 * **/
 	public static Ratio random() {
+		return random(Collections.emptyList());
+	}
+
+	public static Ratio random(List<Taker> takersToAssign) {
 		Ratio ratio = new Ratio();
 
 		Block oneBlock = BlockMother.random(1L);
@@ -74,6 +82,21 @@ public final class RatioMother {
 
 		ratio.add(tenBlock, eightBlock);
 		ratio.add(tenBlock, nineBlock);
+
+		if (takersToAssign.isEmpty()) {
+			return ratio;
+		}
+
+		ratio.assign(takersToAssign.get(0), oneBlock);
+		ratio.assign(takersToAssign.get(0), twoBlock);
+		ratio.assign(takersToAssign.get(0), threeBlock);
+
+		ratio.assign(takersToAssign.get(1), fourBlock);
+		ratio.assign(takersToAssign.get(1), sixBlock);
+
+		ratio.assign(takersToAssign.get(2), fiveBlock);
+		ratio.assign(takersToAssign.get(2), sevenBlock);
+		ratio.assign(takersToAssign.get(2), eightBlock);
 
 		return ratio;
 	}
