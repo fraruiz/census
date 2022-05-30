@@ -96,7 +96,6 @@ public final class RatioMother {
 
 		ratio.assign(takersToAssign.get(2), fiveBlock);
 		ratio.assign(takersToAssign.get(2), sevenBlock);
-		ratio.assign(takersToAssign.get(2), eightBlock);
 
 		return ratio;
 	}

@@ -4,9 +4,10 @@ import ar.edu.ungs.census.blocks.domain.Block;
 import ar.edu.ungs.census.takers.domain.Taker;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public final class Ratio {
-	private final Map<Block, Set<Block>> values;
+	private final Map<Block, List<Block>> values;
 	private final Map<Block, Taker> blocksAssigned;
 
 	public Ratio() {
@@ -18,15 +19,20 @@ public final class Ratio {
 		ensureBlocksAreDifferent(firstBlock, secondBlock);
 
 		if (!values.containsKey(firstBlock)) {
-			values.put(firstBlock, new HashSet<>());
+			values.put(firstBlock, new ArrayList<>());
 		}
 
 		if (!values.containsKey(secondBlock)) {
-			values.put(secondBlock, new HashSet<>());
+			values.put(secondBlock, new ArrayList<>());
 		}
 
-		values.get(firstBlock).add(secondBlock);
-		values.get(secondBlock).add(firstBlock);
+		if (!values.get(firstBlock).contains(secondBlock)) {
+			values.get(firstBlock).add(secondBlock);
+		}
+
+		if (!values.get(secondBlock).contains(firstBlock)) {
+			values.get(secondBlock).add(firstBlock);
+		}
 	}
 
 	public Boolean isNotAssigned(Block block) {
@@ -51,12 +57,12 @@ public final class Ratio {
 		       : Optional.empty();
 	}
 
-	public Set<Block> neighbours(Block block) {
+	public List<Block> neighbours(Block block) {
 		return this.values.get(block);
 	}
 
-	public Set<Block> blocks() {
-		return values.keySet();
+	public List<Block> blocks() {
+		return values.keySet().stream().sorted(Comparator.comparing(Block::id)).collect(Collectors.toList());
 	}
 
 	public Taker assigned(Block block) {

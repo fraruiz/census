@@ -24,6 +24,7 @@ public final class RatioGenerator {
 	private Ratio ratio;
 	private List<Taker> takers;
 	private Map<Taker, Integer> blocksAssignedByTaker;
+	private Map<Block, Boolean> blocksAssignStatus;
 	private Integer takerIndex ;
 
 	public RatioGenerator(DomainRatioFinder finder, AllTakersSearcher allTakersSearcher, RatioSaver saver) {
@@ -35,13 +36,19 @@ public final class RatioGenerator {
 	public void generate() {
 		this.ratio = finder.find();
 		this.takers = allTakersSearcher.search();
+
+		List<Block> blocks = ratio.blocks();
+
 		this.blocksAssignedByTaker = buildBlocksAssignedByTaker(takers);
+		this.blocksAssignStatus = buildBlocksAssignStatus(blocks);
 		this.takerIndex = 0;
 
-		for (Block block : ratio.blocks()) {
-			assignBlock(block);
+		for (Block block : blocks) {
+			if (!blocksAssignStatus.get(block) && takerIndex < takers.size()) {
+				assignBlock(block);
 
-			takerIndex++;
+				takerIndex++;
+			}
 		}
 
 		saver.save(ratio);
@@ -56,21 +63,26 @@ public final class RatioGenerator {
 	}
 
 	public Boolean assignTakerToBlock(Block block) {
-		try {
-			Taker taker = takers.get(takerIndex);
-			Integer blocksAssigned = blocksAssignedByTaker.get(taker);
+		Taker taker = takers.get(takerIndex);
+		Integer blocksAssigned = blocksAssignedByTaker.get(taker);
 
-			if (this.ratio.isAssigned(block) || blocksAssigned >= MAX_ASSIGNS_ATTEMPT_BY_TAKER){
-				return false;
-			}
-
-			ratio.assign(taker, block);
-			blocksAssignedByTaker.put(taker, ++blocksAssigned);
-
-			return true;
-		} catch (ArrayIndexOutOfBoundsException error) {
+		if (this.ratio.isAssigned(block) || blocksAssigned >= MAX_ASSIGNS_ATTEMPT_BY_TAKER){
 			return false;
 		}
+
+		ratio.assign(taker, block);
+		blocksAssignedByTaker.put(taker, ++blocksAssigned);
+		blocksAssignStatus.put(block, true);
+
+		return true;
+	}
+
+	private Map<Block, Boolean> buildBlocksAssignStatus(List<Block> blocks) {
+		Map<Block, Boolean> values = new HashMap<>();
+
+		blocks.forEach(block -> values.put(block, false));
+
+		return values;
 	}
 
 	private Map<Taker, Integer> buildBlocksAssignedByTaker(List<Taker> takers) {

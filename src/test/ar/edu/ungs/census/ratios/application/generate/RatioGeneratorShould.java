@@ -13,6 +13,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 final class RatioGeneratorShould extends RatiosModuleUnitTestCase {
 	private RatioGenerator generator;
 
@@ -35,13 +37,13 @@ final class RatioGeneratorShould extends RatiosModuleUnitTestCase {
 	@Test
 	void generate_a_valid_ratio() {
 		List<Taker> takers = TakerMother.randoms();
-		Ratio expected = RatioMother.random();
+		Ratio ratio = RatioMother.random();
 
-		shouldFind(expected);
+		shouldFind(ratio);
 		shouldSearchAll(takers);
 
 		this.generator.generate();
 
-		shouldSaved(expected);
+		shouldSaved(ratio);
 	}
 }
