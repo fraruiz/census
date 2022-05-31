@@ -1,12 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Bootstrap CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<title>Census 2022</title>
+	<style>
+		main {
+			height: 100vh;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.container-list-takers h1 {
+			text-align: center;
+		}
+
+		.card-header {
+			padding: 0.5em;
+			display: flex;
+			align-items: center;
+			gap: 0.5em;
+		}
+		.card {
+			margin-bottom: .5em;
+		}
+
+	</style>
 </head>
 <body>
-<h1>Create takers</h1>
+	<main>
+		<section class="container-list-takers">
+			<h1>Create takers</h1>
+			<div class="card" style="width: 18rem;">
+				<div class="card-header">
+					<input class="form-control" placeholder="Name" id="inputTakerName"/>
+					<button type="button" class="btn btn-primary" id="btnAddTaker">Add</button>
+				</div>
+				<ul class="list-group list-group-flush" id="ul-takers">
+				</ul>
+			</div>
+			<div class="d-grid">
+				<a th:href="@{/ratios}" class="btn btn-success btn-create" id="btn-create">Create</a>
+			</div>
+		</section>
+	</main>
 
-<a th:href="@{/ratios}">Create</a>
+
+
+	<!-- Option 1: Bootstrap Bundle with Popper -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+	<script>
+		const listTakers = [];
+		const inputTakerName = document.getElementById("inputTakerName");
+		const btnAddTaker = document.getElementById("btnAddTaker");
+		const btnCreate = document.getElementById("btn-create");
+
+		btnCreate.addEventListener('click', () => {
+			create(listTakers);
+		})
+
+		btnAddTaker.addEventListener('click', () => {
+			if(inputTakerName.value !== ''){
+				let valueInputTakerName = inputTakerName.value.trim();
+				addTakerToHTML(valueInputTakerName);
+				addTakerToList(valueInputTakerName);
+				inputTakerName.value = "";
+				inputTakerName.focus();
+			}
+		})
+
+		function addTakerToHTML(name) {
+			let takerNodeHTML = document.createElement("li");
+			takerNodeHTML.classList.add("list-group-item");
+			takerNodeHTML.innerHTML = `${name}`;
+
+			const ulTakers = document.getElementById("ul-takers");
+			ulTakers.appendChild(takerNodeHTML);
+		}
+
+		function addTakerToList(name) {
+			listTakers.push(name);
+		}
+
+		async function create(listNames) {
+
+			let response = await fetch("/api/takers", {
+				method: 'POST', // or 'PUT'
+				body: JSON.stringify(listNames), // data can be `string` or {object}!
+				headers:{
+					'Content-Type': 'application/json'
+				}
+			})
+
+			console.log(response.status);
+		}
+
+	</script>
 </body>
 </html>
