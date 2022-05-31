@@ -40,9 +40,11 @@ public final class JsonFileTakerRepository extends JsonFileRepository<Taker> imp
 	@Override
 	public List<Taker> searchAll() {
 		try {
-			return StreamSupport.stream(Spliterators.spliteratorUnknownSize(super.read().iterator(), Spliterator.ORDERED), false)
-					.map(this::parseFromJson)
-					.collect(Collectors.toList());
+			return StreamSupport.stream(
+					                    Spliterators.spliteratorUnknownSize(super.read().iterator(),
+					                                                        Spliterator.ORDERED), false)
+			                    .map(this::parseFromJson)
+			                    .collect(Collectors.toList());
 		} catch (Exception error) {
 			return Collections.emptyList();
 		}

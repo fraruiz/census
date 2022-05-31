@@ -16,7 +16,7 @@ public final class RatioMother {
 	 * 5 6
 	 * 7 8
 	 * 9 10
-	 *
+	 * <p>
 	 * Blocks -> Neighbours
 	 * 1 -> 2, 3
 	 * 2 -> 1, 4
@@ -28,7 +28,7 @@ public final class RatioMother {
 	 * 8 -> 6, 7, 10
 	 * 9 -> 7, 10
 	 * 10 -> 8, 9
-	 * **/
+	 **/
 	public static Ratio random() {
 		return random(Collections.emptyList());
 	}

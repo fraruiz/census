@@ -9,8 +9,8 @@ import java.util.Map;
 @RestController
 public final class HealthCheckGetController {
 	@GetMapping("/health-check")
-	public Map<String, Object> index(){
-		return new HashMap<>(){{
+	public Map<String, Object> index() {
+		return new HashMap<>() {{
 			put("application", "census");
 			put("command", "web");
 			put("type", "server");

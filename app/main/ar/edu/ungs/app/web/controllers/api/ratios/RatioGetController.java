@@ -20,10 +20,7 @@ public final class RatioGetController {
 
 	@GetMapping("/api/ratios")
 	public List<Map<String, Object>> index() {
-		return finder.find().blocks()
-		             .stream()
-					 .map(this::convertToJson)
-					 .collect(Collectors.toList());
+		return finder.find().blocks().stream().map(this::convertToJson).collect(Collectors.toList());
 	}
 
 	private Map<String, Object> convertToJson(BlockResponse blockResponse) {

@@ -2,37 +2,38 @@ package ar.edu.ungs.census.ratios.application.find;
 
 import ar.edu.ungs.census.ratios.RatiosModuleUnitTestCase;
 import ar.edu.ungs.census.ratios.application.RatioResponse;
-import ar.edu.ungs.census.ratios.application.RatioResponseMother;
 import ar.edu.ungs.census.ratios.domain.Ratio;
 import ar.edu.ungs.census.ratios.domain.RatioMother;
 import ar.edu.ungs.census.ratios.domain.RatioNotExists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final class RatioFinderShould extends RatiosModuleUnitTestCase {
-    private RatioFinder finder;
+	private RatioFinder finder;
 
-    @BeforeEach
-    public void setUp() {
-        super.setUp();
+	@BeforeEach
+	public void setUp() {
+		super.setUp();
 
-        this.finder = new RatioFinder(repository);
-    }
-    @Test
-    public void return_a_ratio(){
-        Ratio ratio = RatioMother.random();
-        RatioResponse expected = RatioResponse.map(ratio);
+		this.finder = new RatioFinder(repository);
+	}
 
-        shouldFind(ratio);
-        RatioResponse actual = finder.find();
+	@Test
+	public void return_a_ratio() {
+		Ratio ratio = RatioMother.random();
+		RatioResponse expected = RatioResponse.map(ratio);
 
-        assertEquals(expected, actual);
-    }
+		shouldFind(ratio);
+		RatioResponse actual = finder.find();
 
-    @Test
-    public void throws_ratio_not_exists() {
-        assertThrows(RatioNotExists.class, () -> finder.find());
-    }
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void throws_ratio_not_exists() {
+		assertThrows(RatioNotExists.class, () -> finder.find());
+	}
 }

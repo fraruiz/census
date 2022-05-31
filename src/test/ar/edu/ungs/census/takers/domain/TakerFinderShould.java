@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final class TakerFinderShould extends TakersModuleUnitTestCase {
 	private TakerFinder finder;
+
 	@BeforeEach
 	public void setUp() {
 		super.setUp();

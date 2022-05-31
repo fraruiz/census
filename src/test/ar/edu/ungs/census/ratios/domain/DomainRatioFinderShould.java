@@ -28,8 +28,8 @@ final class DomainRatioFinderShould extends RatiosModuleUnitTestCase {
 		assertEquals(expected, actual);
 	}
 
-    @Test
-    public void throws_ratio_not_exists() {
-        assertThrows(RatioNotExists.class, () -> finder.find());
-    }
+	@Test
+	public void throws_ratio_not_exists() {
+		assertThrows(RatioNotExists.class, () -> finder.find());
+	}
 }

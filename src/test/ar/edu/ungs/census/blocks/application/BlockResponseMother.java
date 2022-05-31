@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public class BlockResponseMother {
 
-    public static BlockResponse random(){
-        return new BlockResponse(CoordinatesResponseMother.random(), Optional.of(TakerResponseMother.random()));
-    }
+	public static BlockResponse random() {
+		return new BlockResponse(CoordinatesResponseMother.random(), Optional.of(TakerResponseMother.random()));
+	}
 }

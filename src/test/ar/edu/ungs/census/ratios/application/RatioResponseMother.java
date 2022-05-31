@@ -8,17 +8,17 @@ import java.util.Set;
 
 public class RatioResponseMother {
 
-    public static RatioResponse random() {
-        Set<BlockResponse> blockResponses = new HashSet<>();
+	public static RatioResponse random() {
+		Set<BlockResponse> blockResponses = new HashSet<>();
 
-        blockResponses.add(BlockResponseMother.random());
-        blockResponses.add(BlockResponseMother.random());
-        blockResponses.add(BlockResponseMother.random());
-        blockResponses.add(BlockResponseMother.random());
-        blockResponses.add(BlockResponseMother.random());
-        blockResponses.add(BlockResponseMother.random());
-        blockResponses.add(BlockResponseMother.random());
+		blockResponses.add(BlockResponseMother.random());
+		blockResponses.add(BlockResponseMother.random());
+		blockResponses.add(BlockResponseMother.random());
+		blockResponses.add(BlockResponseMother.random());
+		blockResponses.add(BlockResponseMother.random());
+		blockResponses.add(BlockResponseMother.random());
+		blockResponses.add(BlockResponseMother.random());
 
-        return new RatioResponse(blockResponses);
-    }
+		return new RatioResponse(blockResponses);
+	}
 }

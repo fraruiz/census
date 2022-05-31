@@ -14,18 +14,17 @@ import java.util.Map;
 
 @Service
 public final class RatioGenerator {
+	private final static Integer MAX_ASSIGNS_ATTEMPT_BY_TAKER = 3;
+
 	private final DomainRatioFinder finder;
 	private final AllTakersSearcher allTakersSearcher;
-
 	private final RatioSaver saver;
-
-	private final static Integer MAX_ASSIGNS_ATTEMPT_BY_TAKER = 3;
 
 	private Ratio ratio;
 	private List<Taker> takers;
 	private Map<Taker, Integer> blocksAssignedByTaker;
 	private Map<Block, Boolean> blocksAssignStatus;
-	private Integer takerIndex ;
+	private Integer takerIndex;
 
 	public RatioGenerator(DomainRatioFinder finder, AllTakersSearcher allTakersSearcher, RatioSaver saver) {
 		this.finder = finder;
@@ -66,7 +65,7 @@ public final class RatioGenerator {
 		Taker taker = takers.get(takerIndex);
 		Integer blocksAssigned = blocksAssignedByTaker.get(taker);
 
-		if (this.ratio.isAssigned(block) || blocksAssigned >= MAX_ASSIGNS_ATTEMPT_BY_TAKER){
+		if (this.ratio.isAssigned(block) || blocksAssigned >= MAX_ASSIGNS_ATTEMPT_BY_TAKER) {
 			return false;
 		}
 

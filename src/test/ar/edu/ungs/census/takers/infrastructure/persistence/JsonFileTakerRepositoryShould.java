@@ -15,6 +15,7 @@ final class JsonFileTakerRepositoryShould extends TakersModuleInfrastructureTest
 	private JsonFileTakerRepository repository;
 
 	private ObjectMapper objectMapper;
+
 	@BeforeEach
 	void setUp() {
 

@@ -3,9 +3,7 @@ package ar.edu.ungs.census.takers.domain;
 import ar.edu.ungs.census.shared.domain.LongMother;
 import ar.edu.ungs.census.shared.domain.WordMother;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.IntStream;
 
 public final class TakerMother {
 	public static Taker build(Long id, String name) {
