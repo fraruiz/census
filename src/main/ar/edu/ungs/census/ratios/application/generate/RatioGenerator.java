@@ -23,7 +23,6 @@ public final class RatioGenerator {
 	private Ratio ratio;
 	private List<Taker> takers;
 	private Map<Taker, Integer> blocksAssignedByTaker;
-	private Map<Block, Boolean> blocksAssignStatus;
 	private Integer takerIndex;
 
 	public RatioGenerator(DomainRatioFinder finder, AllTakersSearcher allTakersSearcher, RatioSaver saver) {
@@ -39,18 +38,18 @@ public final class RatioGenerator {
 		List<Block> blocks = ratio.blocks();
 
 		this.blocksAssignedByTaker = buildBlocksAssignedByTaker(takers);
-		this.blocksAssignStatus = buildBlocksAssignStatus(blocks);
 		this.takerIndex = 0;
 
-		for (Block block : blocks) {
-			if (!blocksAssignStatus.get(block) && takerIndex < takers.size()) {
-				assignBlock(block);
-
-				takerIndex++;
-			}
-		}
+		blocks.stream().filter(block -> ratio.isNotAssigned(block) && isThereAvailableTaker()).forEach(block -> {
+			assignBlock(block);
+			takerIndex++;
+		});
 
 		saver.save(ratio);
+	}
+
+	private boolean isThereAvailableTaker() {
+		return takerIndex < takers.size();
 	}
 
 	private void assignBlock(Block block) {
@@ -71,17 +70,8 @@ public final class RatioGenerator {
 
 		ratio.assign(taker, block);
 		blocksAssignedByTaker.put(taker, ++blocksAssigned);
-		blocksAssignStatus.put(block, true);
 
 		return true;
-	}
-
-	private Map<Block, Boolean> buildBlocksAssignStatus(List<Block> blocks) {
-		Map<Block, Boolean> values = new HashMap<>();
-
-		blocks.forEach(block -> values.put(block, false));
-
-		return values;
 	}
 
 	private Map<Taker, Integer> buildBlocksAssignedByTaker(List<Taker> takers) {
