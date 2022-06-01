@@ -9,10 +9,42 @@
 	<script crossorigin=""
 	        integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
 	        src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"></script>
+	<!-- Bootstrap CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<style>
+		main {
+			background-image: url("https://images.unsplash.com/photo-1577801599718-f4e3ad3fc794?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80");
+			background-repeat: no-repeat;
+			background-size: cover;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+		}
+
+		.title {
+			color: #f8f9fa;
+		}
+
+		.description {
+			color: #f8f9fa;
+		}
+
+	</style>
 </head>
 <body>
-<h1>Welcome to Census 2022</h1>
-
-<a th:href="@{/blocks}">Generate Census Ratio</a>
+<main>
+	<div class="px-4 pt-5 my-5 text-center">
+		<h1 class="display-4 fw-bold title">Census 2022</h1>
+		<div class="col-lg-6 mx-auto">
+			<p class="lead mb-4 description">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
+			<div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
+				<a th:href="@{/takers/create}" type="button" class="btn btn-primary btn-lg px-4 me-sm-3">Start</a>
+			</div>
+		</div>
+	</div>
+</main>
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>
