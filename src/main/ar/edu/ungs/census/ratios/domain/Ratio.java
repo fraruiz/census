@@ -75,6 +75,14 @@ public final class Ratio {
 		}
 	}
 
+	public void unassign() {
+		this.blocks().forEach(this::unassign);
+	}
+
+	private void unassign(Block block) {
+		this.blocksAssigned.put(block, null);
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {

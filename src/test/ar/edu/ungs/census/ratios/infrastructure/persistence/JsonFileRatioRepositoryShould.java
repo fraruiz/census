@@ -3,6 +3,7 @@ package ar.edu.ungs.census.ratios.infrastructure.persistence;
 import ar.edu.ungs.census.ratios.RatiosModuleInfrastructureTestCase;
 import ar.edu.ungs.census.ratios.domain.Ratio;
 import ar.edu.ungs.census.ratios.domain.RatioMother;
+import ar.edu.ungs.census.takers.domain.TakerMother;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,7 +24,7 @@ final class JsonFileRatioRepositoryShould extends RatiosModuleInfrastructureTest
 	}
 
 	@Test
-	void save_an_aggregate() throws JsonProcessingException {
+	void save_an_aggregate() {
 		repository.clean();
 
 		Ratio aggregate = RatioMother.random();
@@ -32,7 +33,7 @@ final class JsonFileRatioRepositoryShould extends RatiosModuleInfrastructureTest
 	}
 
 	@Test
-	void return_an_existing_aggregate() throws JsonProcessingException {
+	void return_an_existing_aggregate() {
 		repository.clean();
 
 		Ratio aggregate = RatioMother.random();

@@ -47,34 +47,15 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script>
 	const map = L.map('map').setView([51.505, -0.09], 13);
-	const response = [
-		{
-			'latitude': 51.503,
-			'longitude':-0.09,
-			'taker_id':3,
-			'taker_name':'Ezequiel'
-		},
-		{
-			'latitude': 51.502,
-			'longitude':-0.09,
-			'taker_id':2,
-			'taker_name':'Nicolás'
-		},
-		{
-			'latitude': 51.502,
-			'longitude':-0.091,
-			'taker_id':1,
-			'taker_name':'Francisco'
-		}
-	]
 
-	window.addEventListener('load', () => {
+	window.addEventListener('load', async () => {
 		loadMap();
-		addMarksToMap(response);
+		generateRatio().then(() => findRatio().then(ratio => addMarksToMap(ratio)));
 	});
 
-	async function requestRatioData() {
+	async function generateRatio() {
 		const location = window.location.hostname;
+		const endpoint = `http://${location}:8080/api/ratios`;
 		const settings = {
 			method: 'POST',
 			headers: {
@@ -83,15 +64,30 @@
 			}
 		};
 		try {
-			const fetchResponse = await fetch(`http://${location}:8080/api/ratios`, settings);
+			const fetchResponse = await fetch(endpoint, settings);
 			return await fetchResponse.json();
 		} catch (e) {
 			return e;
 		}
 	}
 
-
-
+	async function findRatio() {
+		const location = window.location.hostname;
+		const endpoint = `http://${location}:8080/api/ratios`;
+		const settings = {
+			method: 'GET',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+			}
+		};
+		try {
+			const fetchResponse = await fetch(endpoint, settings);
+			return await fetchResponse.json();
+		} catch (e) {
+			return e;
+		}
+	}
 
 	function loadMap() {
 		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -106,7 +102,7 @@
 
 	function addMarksToMap(marks) {
 		for(const mark of marks) {
-			addMark(map, [mark.latitude, mark.longitude], mark.taker_name);
+			addMark(map, [mark.latitude, mark.longitude], mark.taker.name);
 		}
 	}
 </script>

@@ -29,8 +29,10 @@ public final class RatioGetController {
 			put("longitude", blockResponse.coordinates().longitude());
 
 			if (blockResponse.taker().isPresent()) {
-				put("taker_id", blockResponse.taker().get().id());
-				put("taker_name", blockResponse.taker().get().name());
+				put("taker", new HashMap<>(){{
+					put("id", blockResponse.taker().get().id());
+					put("name", blockResponse.taker().get().name());
+				}});
 			}
 		}};
 	}

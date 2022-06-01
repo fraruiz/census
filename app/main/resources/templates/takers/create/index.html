@@ -44,7 +44,7 @@
 				</ul>
 			</div>
 			<div class="d-grid">
-				<a th:href="@{/ratios}" class="btn btn-success btn-create" id="btn-create">Create</a>
+				<a class="btn btn-success btn-create" id="btn-create">Create</a>
 			</div>
 		</section>
 	</main>
@@ -61,7 +61,9 @@
 		const btnCreate = document.getElementById("btn-create");
 
 		btnCreate.addEventListener('click', () => {
-			create(listTakers);
+			create(listTakers)
+					.then(() => window.location.replace(`http://${window.location.hostname}:8080/ratios`))
+					.catch(() => alert("ERROR!"))
 		})
 
 		btnAddTaker.addEventListener('click', () => {
@@ -88,16 +90,24 @@
 		}
 
 		async function create(listNames) {
-
-			let response = await fetch("/api/takers", {
-				method: 'POST', // or 'PUT'
-				body: JSON.stringify(listNames), // data can be `string` or {object}!
-				headers:{
-					'Content-Type': 'application/json'
+			const location = window.location.hostname;
+			const endpoint = `http://${location}:8080/api/takers`;
+			const requestBody = JSON.stringify(listNames);
+			const settings = {
+				method: 'POST',
+				body: requestBody,
+				headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json',
 				}
-			})
+			};
 
-			console.log(response.status);
+			try {
+				const fetchResponse = await fetch(endpoint, settings);
+				return await fetchResponse.json();
+			} catch (e) {
+				return e;
+			}
 		}
 
 	</script>

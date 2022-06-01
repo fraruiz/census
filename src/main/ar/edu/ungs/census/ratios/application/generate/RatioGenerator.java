@@ -35,6 +35,7 @@ public final class RatioGenerator {
 		this.ratio = finder.find();
 		this.takers = allTakersSearcher.search();
 
+		ratio.unassign();
 		List<Block> blocks = ratio.blocks();
 
 		this.blocksAssignedByTaker = buildBlocksAssignedByTaker(takers);
