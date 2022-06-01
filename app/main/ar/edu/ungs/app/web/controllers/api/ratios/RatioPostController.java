@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public final class RatioPostController {
 	private final RatioGenerator generator;
 
-	public RatioPostController(RatioGenerator generator, RatioFinder finder) {
+	public RatioPostController(RatioGenerator generator) {
 		this.generator = generator;
 	}
 

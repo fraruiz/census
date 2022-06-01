@@ -96,14 +96,18 @@
 	}
 
 	function addMark(map, marker, name) {
-		L.marker(marker).addTo(map)
-				.bindPopup(`Taker Name: <br> ${name}`);
+		if (name == null){
+			L.marker(marker).addTo(map);
+		} else {
+			L.marker(marker).addTo(map)
+					.bindPopup(`Taker Name: <br> ${name}`);
+		}
 	}
 
 	function addMarksToMap(marks) {
-		for(const mark of marks) {
-			addMark(map, [mark.latitude, mark.longitude], mark.taker.name);
-		}
+		console.log(marks)
+		marks.forEach(mark => console.log(mark));
+		marks.forEach(mark => addMark(map, [mark.latitude, mark.longitude], mark.taker.name));
 	}
 </script>
 </body>
