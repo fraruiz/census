@@ -95,19 +95,20 @@
 		}).addTo(map);
 	}
 
-	function addMark(map, marker, name) {
-		if (name == null){
-			L.marker(marker).addTo(map);
+	function addMark(map, marker, taker) {
+		if (taker === undefined){
+			L.marker(marker).addTo(map)
+					.bindPopup('Sin asignar');
 		} else {
 			L.marker(marker).addTo(map)
-					.bindPopup(`Taker Name: <br> ${name}`);
+					.bindPopup(`Taker Name: <br> ${taker.name}`);
 		}
 	}
 
 	function addMarksToMap(marks) {
 		console.log(marks)
 		marks.forEach(mark => console.log(mark));
-		marks.forEach(mark => addMark(map, [mark.latitude, mark.longitude], mark.taker.name));
+		marks.forEach(mark => addMark(map, [mark.latitude, mark.longitude], mark.taker));
 	}
 </script>
 </body>
