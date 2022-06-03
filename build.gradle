@@ -12,7 +12,7 @@ version '1.0-SNAPSHOT'
 
 bootJar {
     manifest {
-        attributes 'Start-Class': group + '.app.Starter'
+        attributes 'Start-Class': 'ar.edu.ungs.app.Starter'
     }
 }
 
