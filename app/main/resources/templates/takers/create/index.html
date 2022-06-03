@@ -61,8 +61,10 @@
 		const btnCreate = document.getElementById("btn-create");
 
 		btnCreate.addEventListener('click', () => {
+			const location = window.location.hostname;
+			const endpoint = location === 'localhost' ? `http://${location}:8080/ratios` : `https://${location}/ratios`;
 			create(listTakers)
-					.then(() => window.location.replace(`http://${window.location.hostname}:8080/ratios`))
+					.then(() => window.location.replace(endpoint))
 					.catch(() => alert("ERROR!"))
 		})
 
@@ -91,7 +93,7 @@
 
 		async function create(listNames) {
 			const location = window.location.hostname;
-			const endpoint = `http://${location}:8080/api/takers`;
+			const endpoint = location === 'localhost' ? `http://${location}:8080/api/takers` : `https://${location}/api/takers`;
 			const requestBody = JSON.stringify(listNames);
 			const settings = {
 				method: 'POST',

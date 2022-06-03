@@ -55,7 +55,7 @@
 
 	async function generateRatio() {
 		const location = window.location.hostname;
-		const endpoint = `http://${location}:8080/api/ratios`;
+		const endpoint = location === 'localhost' ? `http://${location}:8080/api/ratios` : `https://${location}/api/ratios`;
 		const settings = {
 			method: 'POST',
 			headers: {
@@ -73,7 +73,7 @@
 
 	async function findRatio() {
 		const location = window.location.hostname;
-		const endpoint = `http://${location}:8080/api/ratios`;
+		const endpoint = location === 'localhost' ? `http://${location}:8080/api/ratios` : `https://${location}/api/ratios`;
 		const settings = {
 			method: 'GET',
 			headers: {
