@@ -3,6 +3,8 @@ package ar.edu.ungs.census.shared.infrastructure.persistence;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.List;
@@ -11,6 +13,8 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public abstract class JsonFileRepository<T> {
+	private final Logger logger = LoggerFactory.getLogger(JsonFileRepository.class);
+
 	private final ObjectMapper objectMapper;
 	private final String fileName;
 
@@ -26,8 +30,11 @@ public abstract class JsonFileRepository<T> {
 			FileWriter file = new FileWriter(filePath);
 			file.write(object);
 			file.flush();
+
+			logger.info(filePath + " written");
 		} catch (Exception error) {
 			error.printStackTrace();
+			logger.error("error trying write a " + fileName + " file", error);
 		}
 	}
 
@@ -47,18 +54,35 @@ public abstract class JsonFileRepository<T> {
 	}
 
 	protected JsonNode read() throws IOException {
-		String filePath = findFilePath();
-		File fileToRead = new File(filePath);
+		try {
+			String filePath = findFilePath();
+			File fileToRead = new File(filePath);
 
-		FileReader reader = new FileReader(fileToRead);
-		BufferedReader bufferedReader = new BufferedReader(reader);
+			FileReader reader = new FileReader(fileToRead);
+			BufferedReader bufferedReader = new BufferedReader(reader);
 
-		return objectMapper.readTree(bufferedReader);
+			logger.info(filePath + "read");
+
+			return objectMapper.readTree(bufferedReader);
+		} catch (Exception error) {
+			logger.error("error trying read a " + fileName + " file", error);
+
+			throw error;
+		}
 	}
 
 	private String findFilePath() {
-		ClassLoader classLoader = getClass().getClassLoader();
-		return Objects.requireNonNull(classLoader.getResource(fileName)).getPath();
+		try {
+			ClassLoader classLoader = getClass().getClassLoader();
+			String path = Objects.requireNonNull(classLoader.getResource(fileName)).getPath();
+
+			logger.info(path + " found");
+
+			return path;
+		} catch (Exception error) {
+			logger.error(fileName + " not found", error);
+			throw error;
+		}
 	}
 
 	protected abstract Map<String, Object> parseToJson(T aggregate);
