@@ -14,7 +14,7 @@ import java.util.stream.StreamSupport;
 @Service
 public final class JsonFileTakerRepository extends JsonFileRepository<Taker> implements TakerRepository {
 	public JsonFileTakerRepository(ObjectMapper objectMapper) {
-		super(objectMapper, "takers.json");
+		super(objectMapper, "src/main/resources/takers.json");
 	}
 
 	@Override

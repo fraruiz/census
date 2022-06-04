@@ -16,17 +16,15 @@ public abstract class JsonFileRepository<T> {
 	private final Logger logger = LoggerFactory.getLogger(JsonFileRepository.class);
 
 	private final ObjectMapper objectMapper;
-	private final String fileName;
+	private final String filePath;
 
-	public JsonFileRepository(ObjectMapper objectMapper, String fileName) {
+	public JsonFileRepository(ObjectMapper objectMapper, String filePath) {
 		this.objectMapper = objectMapper;
-		this.fileName = fileName;
+		this.filePath = filePath;
 	}
 
 	private void write(String object) {
 		try {
-			String filePath = findFilePath();
-
 			FileWriter file = new FileWriter(filePath);
 			file.write(object);
 			file.flush();
@@ -34,7 +32,7 @@ public abstract class JsonFileRepository<T> {
 			logger.info(filePath + " written");
 		} catch (Exception error) {
 			error.printStackTrace();
-			logger.error("error trying write a " + fileName + " file", error);
+			logger.error("error trying write a " + filePath + " file", error);
 		}
 	}
 
@@ -55,7 +53,6 @@ public abstract class JsonFileRepository<T> {
 
 	protected JsonNode read() throws IOException {
 		try {
-			String filePath = findFilePath();
 			File fileToRead = new File(filePath);
 
 			FileReader reader = new FileReader(fileToRead);
@@ -65,22 +62,8 @@ public abstract class JsonFileRepository<T> {
 
 			return objectMapper.readTree(bufferedReader);
 		} catch (Exception error) {
-			logger.error("error trying read a " + fileName + " file", error);
+			logger.error("error trying read a " + filePath + " file", error);
 
-			throw error;
-		}
-	}
-
-	private String findFilePath() {
-		try {
-			ClassLoader classLoader = getClass().getClassLoader();
-			String path = Objects.requireNonNull(classLoader.getResource(fileName)).getPath();
-
-			logger.info(path + " found");
-
-			return path;
-		} catch (Exception error) {
-			logger.error(fileName + " not found", error);
 			throw error;
 		}
 	}

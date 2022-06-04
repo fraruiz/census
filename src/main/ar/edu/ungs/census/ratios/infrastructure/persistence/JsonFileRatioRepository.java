@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @Service
 public final class JsonFileRatioRepository extends JsonFileRepository<Ratio> implements RatioRepository {
 	public JsonFileRatioRepository(ObjectMapper objectMapper) {
-		super(objectMapper, "ratio.json");
+		super(objectMapper, "src/main/resources/ratio.json");
 	}
 
 	@Override
